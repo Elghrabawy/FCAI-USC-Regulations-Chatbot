@@ -42,6 +42,7 @@ export const PromptInputTextarea = ({
   placeholder = 'What would you like to know?',
   minHeight = 48,
   maxHeight = 164,
+  rows = 3,
   ...props
 }: PromptInputTextareaProps) => {
   const handleKeyDown: KeyboardEventHandler<HTMLTextAreaElement> = (e) => {
@@ -63,12 +64,13 @@ export const PromptInputTextarea = ({
   return (
     <Textarea
       className={cn(
-        'w-full resize-none rounded-none border-none p-3 shadow-none outline-none ring-0',
+        'w-full resize-none rounded-none border-0 border-none p-3 shadow-none outline-none ring-0',
         'field-sizing-content max-h-[6lh] bg-transparent dark:bg-transparent',
-        'focus-visible:ring-0',
-        className
+        'focus:ring-0 focus:border-0 focus-visible:ring-0 focus-visible:border-0 focus-visible:outline-none',
+        className,
       )}
       name="message"
+      rows={rows}
       onChange={(e) => {
         onChange?.(e);
       }}
