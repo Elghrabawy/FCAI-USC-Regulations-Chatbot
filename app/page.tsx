@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import {
   Conversation,
   ConversationContent,
@@ -38,8 +39,18 @@ export default function Home() {
     toggleDesktopSidebar,
   } = useChatState();
 
+  const handleExampleClick = (example: string) => {
+    setInputText(example);
+  };
+
   return (
-    <div className={`flex h-screen bg-background ${isRTL ? "rtl" : "ltr"}`} dir={isRTL ? "rtl" : "ltr"}>
+    <div className={`flex h-screen bg-background overflow-hidden ${isRTL ? "rtl" : "ltr"}`} dir={isRTL ? "rtl" : "ltr"}>
+      {/* Background decorative elements */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-primary/5 rounded-full blur-3xl" />
+      </div>
+
       {/* Sidebar */}
       <ChatSidebar
         isOpen={sidebarOpen}
@@ -57,7 +68,12 @@ export default function Home() {
       />
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col min-w-0">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        className="flex-1 flex flex-col min-w-0 relative"
+      >
         {/* Header */}
         <ChatHeader
           t={t}
@@ -66,10 +82,10 @@ export default function Home() {
         />
 
         {/* Chat Area */}
-        <Conversation className="flex-1" style={{ minHeight: 0 }}>
-          <ConversationContent className="max-w-4xl mx-auto">
+        <Conversation className="flex-1 relative" style={{ minHeight: 0 }}>
+          <ConversationContent className="max-w-4xl mx-auto px-4">
             {messages.length === 0 ? (
-              <WelcomeScreen t={t} isRTL={isRTL} />
+              <WelcomeScreen t={t} isRTL={isRTL} onExampleClick={handleExampleClick} />
             ) : (
               <ChatMessages
                 messages={messages}
@@ -90,7 +106,7 @@ export default function Home() {
           status={status}
           t={t}
         />
-      </div>
+      </motion.div>
     </div>
   );
 }
