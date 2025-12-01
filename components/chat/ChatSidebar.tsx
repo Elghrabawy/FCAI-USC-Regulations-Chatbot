@@ -190,7 +190,7 @@ export function ChatSidebar({
             initial={{ x: isRTL ? "100%" : "-100%" }}
             animate={{ x: 0 }}
             exit={{ x: isRTL ? "100%" : "-100%" }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
+            transition={{ duration: 0.3, ease: [0.45, 0, 0.55, 1] }}
             className="fixed z-50 h-full w-72 bg-gradient-to-b from-background/95 to-background/90 backdrop-blur-xl border-e flex flex-col shadow-2xl md:hidden"
           >
             {renderSidebarContent(true)}
@@ -205,7 +205,7 @@ export function ChatSidebar({
           width: isDesktopCollapsed ? 48 : 0,
           opacity: isDesktopCollapsed ? 1 : 0 
         }}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
+        transition={{ duration: 0.3, ease: [0.45, 0, 0.55, 1] }}
         className="hidden md:flex flex-col items-center py-3 bg-gradient-to-b from-secondary/40 to-secondary/20 border-e overflow-hidden"
       >
         <motion.div
@@ -231,7 +231,7 @@ export function ChatSidebar({
           width: isDesktopCollapsed ? 0 : 288,
           opacity: isDesktopCollapsed ? 0 : 1,
         }}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
+        transition={{ duration: 0.3, ease: [0.45, 0, 0.55, 1] }}
         className={`
           hidden md:flex flex-col bg-gradient-to-b from-secondary/30 to-secondary/10 border-e
           ${isDesktopCollapsed ? "overflow-hidden border-0" : ""}

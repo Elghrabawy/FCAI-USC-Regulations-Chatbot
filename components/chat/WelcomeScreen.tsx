@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, type Variants, type TargetAndTransition } from "framer-motion";
 import { BotIcon, SparklesIcon, BookOpenIcon, GraduationCapIcon, HelpCircleIcon } from "lucide-react";
 import type { Translation } from "@/lib/types";
 
@@ -10,7 +10,7 @@ interface WelcomeScreenProps {
   onExampleClick?: (example: string) => void;
 }
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -21,17 +21,17 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0 },
 };
 
-const floatAnimation = {
+const floatAnimation: TargetAndTransition = {
   y: [-5, 5, -5],
   transition: {
     duration: 4,
     repeat: Infinity,
-    ease: "easeInOut",
+    ease: [0.45, 0, 0.55, 1] as const, // easeInOut cubic bezier
   },
 };
 
