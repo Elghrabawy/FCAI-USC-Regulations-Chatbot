@@ -1,6 +1,8 @@
 {
   "name": "fcai_usc_regulations_chatbot",
   "version": "0.1.0",
+  "description": "FCAI USC Regulations Chatbot — bilingual assistant for faculty regulations",
+  "homepage": "https://github.com/Elghrabawy/FCAI-USC-Regulations-Chatbot",
   "private": true,
   "scripts": {
     "dev": "next dev",
