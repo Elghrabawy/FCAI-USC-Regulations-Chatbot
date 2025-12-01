@@ -28,6 +28,8 @@ export const translations: Translations = {
     deleteChat: "حذف المحادثة",
     hideSidebar: "إخفاء القائمة الجانبية",
     showSidebar: "إظهار القائمة الجانبية",
+    darkMode: "الوضع الداكن",
+    lightMode: "الوضع الفاتح",
   },
   en: {
     title: "FCAI USC Regulations Chatbot",
@@ -55,6 +57,8 @@ export const translations: Translations = {
     deleteChat: "Delete chat",
     hideSidebar: "Hide sidebar",
     showSidebar: "Show sidebar",
+    darkMode: "Dark Mode",
+    lightMode: "Light Mode",
   },
 };
 
@@ -70,6 +74,7 @@ export const STORAGE_KEYS = {
   CHATS: "fcai-chatbot-chats",
   CURRENT_CHAT: "fcai-chatbot-current-chat",
   LANGUAGE: "fcai-chatbot-language",
+  THEME: "fcai-chatbot-theme",
 };
 
 // API endpoint

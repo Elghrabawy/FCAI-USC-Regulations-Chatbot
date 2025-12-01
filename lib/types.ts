@@ -49,6 +49,10 @@ export interface Translation {
   deleteChat: string;
   hideSidebar: string;
   showSidebar: string;
+  darkMode: string;
+  lightMode: string;
 }
+
+export type Theme = "light" | "dark";
 
 export type Translations = Record<Language, Translation>;

@@ -2,20 +2,24 @@
 
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { FileTextIcon, GlobeIcon, MenuIcon, SparklesIcon } from "lucide-react";
+import { FileTextIcon, GlobeIcon, MenuIcon, SparklesIcon, MoonIcon, SunIcon } from "lucide-react";
 import type { Translation } from "@/lib/types";
 import { REFERENCE_PDF } from "@/lib/constants";
 
 interface ChatHeaderProps {
   t: Translation;
+  isDark: boolean;
   onToggleSidebar: () => void;
   onToggleLanguage: () => void;
+  onToggleTheme: () => void;
 }
 
 export function ChatHeader({
   t,
+  isDark,
   onToggleSidebar,
   onToggleLanguage,
+  onToggleTheme,
 }: ChatHeaderProps) {
   return (
     <motion.header
@@ -78,8 +82,32 @@ export function ChatHeader({
           </p>
         </motion.div>
         
-        {/* Language Toggle - Desktop */}
-        <div className="flex-1 hidden md:flex justify-end">
+        {/* Language & Theme Toggle - Desktop */}
+        <div className="flex-1 hidden md:flex justify-end gap-2">
+          {/* Theme Toggle */}
+          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={onToggleTheme}
+              className="h-10 w-10 rounded-xl hover:bg-primary/10 transition-all"
+              title={isDark ? t.lightMode : t.darkMode}
+            >
+              <motion.div
+                initial={false}
+                animate={{ rotate: isDark ? 180 : 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                {isDark ? (
+                  <SunIcon className="h-5 w-5 text-amber-500" />
+                ) : (
+                  <MoonIcon className="h-5 w-5 text-primary" />
+                )}
+              </motion.div>
+            </Button>
+          </motion.div>
+
+          {/* Language Toggle */}
           <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
             <Button
               variant="ghost"

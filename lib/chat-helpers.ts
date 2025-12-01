@@ -1,4 +1,4 @@
-import type { Language, ParsedSource, ApiResponse, ChatSession, ChatMessage } from "./types";
+import type { Language, ParsedSource, ApiResponse, ChatSession, ChatMessage, Theme } from "./types";
 import { API_ENDPOINT } from "./constants";
 
 // Simple ID generator
@@ -123,4 +123,16 @@ export function initializeLanguage(): Language {
     return loadFromStorage<Language>("fcai-chatbot-language", "ar");
   }
   return "ar";
+}
+
+export function initializeTheme(): Theme {
+  if (typeof window !== "undefined") {
+    const stored = loadFromStorage<Theme>("fcai-chatbot-theme", "light");
+    // Check system preference if no stored value
+    if (!localStorage.getItem("fcai-chatbot-theme")) {
+      return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    return stored;
+  }
+  return "light";
 }

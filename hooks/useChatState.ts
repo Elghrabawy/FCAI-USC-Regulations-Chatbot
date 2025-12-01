@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect, type FormEventHandler } from "react";
-import type { Language, ChatMessage, ChatSession } from "@/lib/types";
+import type { Language, ChatMessage, ChatSession, Theme } from "@/lib/types";
 import { translations, STORAGE_KEYS } from "@/lib/constants";
 import {
   generateId,
@@ -12,6 +12,7 @@ import {
   initializeCurrentChatId,
   initializeMessages,
   initializeLanguage,
+  initializeTheme,
 } from "@/lib/chat-helpers";
 
 export function useChatState() {
@@ -21,16 +22,22 @@ export function useChatState() {
   const [inputText, setInputText] = useState("");
   const [status, setStatus] = useState<"submitted" | "streaming" | "ready" | "error">("ready");
   const [lang, setLang] = useState<Language>(initializeLanguage);
+  const [theme, setTheme] = useState<Theme>(initializeTheme);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [desktopSidebarCollapsed, setDesktopSidebarCollapsed] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
 
   const t = translations[lang];
   const isRTL = lang === "ar";
+  const isDark = theme === "dark";
 
-  // Mark as hydrated on mount
+  // Mark as hydrated on mount and apply theme to document
   useEffect(() => {
     setIsHydrated(true);
+    // Apply theme to document
+    const savedTheme = initializeTheme();
+    setTheme(savedTheme);
+    document.documentElement.classList.toggle("dark", savedTheme === "dark");
   }, []);
 
   // Save chats to local storage when they change
@@ -53,6 +60,14 @@ export function useChatState() {
       saveToStorage(STORAGE_KEYS.LANGUAGE, lang);
     }
   }, [lang, isHydrated]);
+
+  // Save theme preference and apply to document
+  useEffect(() => {
+    if (isHydrated) {
+      saveToStorage(STORAGE_KEYS.THEME, theme);
+      document.documentElement.classList.toggle("dark", theme === "dark");
+    }
+  }, [theme, isHydrated]);
 
   // Function to update chat session
   const updateChatSession = useCallback((chatId: string, newMessages: ChatMessage[]) => {
@@ -170,6 +185,10 @@ export function useChatState() {
     setLang(lang === "ar" ? "en" : "ar");
   }, [lang]);
 
+  const toggleTheme = useCallback(() => {
+    setTheme(prev => prev === "dark" ? "light" : "dark");
+  }, []);
+
   const toggleSidebar = useCallback(() => {
     setSidebarOpen(prev => !prev);
   }, []);
@@ -192,11 +211,13 @@ export function useChatState() {
     inputText,
     status,
     lang,
+    theme,
     sidebarOpen,
     desktopSidebarCollapsed,
     isLoading,
     t,
     isRTL,
+    isDark,
     
     // Actions
     setInputText,
@@ -205,6 +226,7 @@ export function useChatState() {
     deleteChat,
     handleSubmit,
     toggleLanguage,
+    toggleTheme,
     toggleSidebar,
     closeSidebar,
     toggleDesktopSidebar,

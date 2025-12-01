@@ -28,12 +28,14 @@ export default function Home() {
     isLoading,
     t,
     isRTL,
+    isDark,
     setInputText,
     createNewChat,
     selectChat,
     deleteChat,
     handleSubmit,
     toggleLanguage,
+    toggleTheme,
     toggleSidebar,
     closeSidebar,
     toggleDesktopSidebar,
@@ -77,8 +79,10 @@ export default function Home() {
         {/* Header */}
         <ChatHeader
           t={t}
+          isDark={isDark}
           onToggleSidebar={toggleSidebar}
           onToggleLanguage={toggleLanguage}
+          onToggleTheme={toggleTheme}
         />
 
         {/* Chat Area */}
