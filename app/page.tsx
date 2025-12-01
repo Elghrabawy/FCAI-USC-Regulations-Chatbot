@@ -293,6 +293,7 @@ export default function Home() {
                     {message.role === "assistant" ? (
                       <div className="space-y-4">
                         <Response>{message.content}</Response>
+                        
                         {message.sources && message.sources.length > 0 && (
                           <Sources>
                             <SourcesTrigger count={message.sources.length} label={t.sources} />
